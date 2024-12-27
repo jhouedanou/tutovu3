@@ -1,41 +1,19 @@
 <script setup>
 import { ref } from 'vue'
-//variables
-const msg = ref('Tuto Vue 3');
-const jour = ref(true); //il fait jour
+//var
+const items = ref(['Item 1', 'Item 2', 'Item 3']);
 //fn
 
+
 </script>
+
 <template>
   <main>
-    <h1> {{ msg.toUpperCase() }}</h1>
-    <h2>Jour</h2>
-    <h2>Nuit</h2>
-    <button @click="submitForm">Valider</button>
+<h2>{{msg}}</h2>
+<ul><li>Item i</li></ul>
   </main>
-
 </template>
-<style scoped>
-input {
-  width: 80vw;
-  height: 42px;
-}
+<style lang="scss">
 
-p {
-  font-size: 1.5em;
-  font-weight: bold;
 
-}
-
-h1:hover {
-  cursor: pointer;
-}
-
-.green {
-  color: rgb(0, 134, 22);
-}
-
-.red {
-  color: red;
-}
 </style>
