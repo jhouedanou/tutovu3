@@ -2,15 +2,17 @@
 import { ref } from 'vue'
 //variables
 const msg = ref('Tuto Vue 3');
-const jour = ref(true); //il fait jour
-//fn
+const inputMsg = ref('Saisir un texte');
 
+const submitForm = () => {
+  console.log(inputMsg.value)
+};
 </script>
 <template>
   <main>
     <h1> {{ msg.toUpperCase() }}</h1>
-    <h2>Jour</h2>
-    <h2>Nuit</h2>
+    <p>{{ inputMsg }}</p>
+    <input type="text" name="toto" id="toto" v-model="inputMsg" />
     <button @click="submitForm">Valider</button>
   </main>
 
