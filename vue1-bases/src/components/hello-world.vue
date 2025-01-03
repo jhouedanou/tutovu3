@@ -18,7 +18,8 @@ const messageFromComponentFn = () => {
     color="blue"
   />
   <ComposantSlot>Exemple : {{ msgPourleSlot.toUpperCase() }} </ComposantSlot>
-  <ComposantSlot></ComposantSlot>
+  <ComposantSlot><i>Example</i></ComposantSlot>
+  <ComposantSlot />
 </template>
 
 <style lang="scss" scoped>
