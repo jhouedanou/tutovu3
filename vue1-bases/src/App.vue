@@ -1,23 +1,32 @@
 <script setup>
-import { ref, computed } from "vue";
-import "bulma/css/bulma.min.css";
-
+import { ref, computed, watch } from "vue";
+import "bootstrap/dist/css/bootstrap.min.css";
 //var
 let id = 0;
 const msg = ref("Tuto VUE 3");
-const fName = ref("Jean-Luc Lionel");
-const lName = ref("Houédanou");
-//fn
-const fullName = computed(() => {
-  return fName.value + " " + lName.value.toUpperCase();
+const question = ref("");
+const answer = ref(
+  "Questions usually contain a question mark. Ex. Where are you going?"
+);
+const loading = ref(false);
+watch(question, async (newQuestion, oldQuestion) => {
+  if (newQuestion.includes("?")) {
+    loading.value = true;
+    answer.value = "Thinking...";
+    try {
+      const rest = await fetch("https://yesno.wtf/api");
+      answer.value = (await rest.json()).answer;
+    } catch (error) {
+      answer.valuie = "Error ! could not reach the Api" + error;
+    } finally {
+      loading.value = false;
+    }
+  }
 });
 </script>
 <template>
   <div class="page-wrapper">
-    <main class="container">
-      <h2 class="title is-2">{{ msg }}</h2>
-      <p class="subtitle">Bonjour, {{ fullName }}</p>
-    </main>
+    <main class="container"></main>
   </div>
 </template>
 
