@@ -136,7 +136,16 @@
               <!-- page 1 -->
             </v-sheet>
           </v-col>
-          <v cols="12" sm="2" />
+          <v-col cols="12" sm="2">
+            <v-sheet rounded="lg" min-height="260" class="pa-3">
+              <v-list-item-title class="text-h4 mb-1 mt-2"
+                >Help</v-list-item-title
+              >
+              <p>Lorem IUpsum</p>
+              <p>Lorem IUpsum</p>
+              <v-btn>Call </v-btn>
+            </v-sheet>
+          </v-col>
         </v-row>
       </v-container>
     </v-main>
