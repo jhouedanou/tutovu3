@@ -11,11 +11,10 @@
       <v-spacer />
     </v-app-bar>
     <!-- main content -->
-
     <v-main class="px-3">
       <v-container fluid>
         <v-row>
-          <v-col cols="12" sm="2"> </v-col>
+          <v-col cols="12" sm="2" />
           <v-col cols="12" sm="8">
             <v-sheet
               v-if="selectedTab == 0"
@@ -33,14 +32,83 @@
                 class="ma-4"
                 indeterminate
               />
-              <!-- API -->
-              {{ groupedData }}
+              <!-- affichage 2 l'api sousforme de datable -->
+              <v-data-table
+                v-if="groupedData"
+                :items="groupedData"
+                :headers="headers"
+                item-value="app"
+                v-model:expanded="expanded"
+                show-expand="true"
+              >
+                <template v-slot:header.app="{ column }">
+                  {{ column.title.toUpperCase() }}
+                </template>
+                <template v-slot:expanded-row="{ columns, item }">
+                  <tr>
+                    <td :colspan="columns.length">
+                      <div class="pa-5">
+                        The country which generated the most revenue for
+                        {{ item.app }} is{{ useGetBestCountry(item) }}
+                        <!-- graphique -->
+                        <BarChart
+                          class="d-flex mx-auto my-0"
+                          :data="[
+                            item.totalRevenuesUS,
+                            item.totalRevenuesUK,
+                            item.totalRevenuesFR,
+                            item.totalRevenuesJP,
+                            item.totalRevenuesAU,
+                            item.totalRevenuesCN,
+                          ]"
+                        />
+                        <v-row>
+                          <v-col
+                            >Total ads views: <b>{{ item.totalViews }}</b>
+                            <br />
+                            Total conversions:
+                            <b>{{ item.totalConversions }}</b>
+                            <br />
+                            Conversions %:
+                            <b
+                              >{{
+                                (
+                                  (item.totalConversions * 100) /
+                                  item.totalViews
+                                ).toFixed(2)
+                              }}
+                              %</b
+                            >
+                            <br />
+                            Total revenues:
+                            <b>{{ useFormatRevenues(item.totalRevenues) }}</b>
+                          </v-col>
+                          <v-col
+                            >Total banner revenues:
+                            <b>{{ useFormatRevenues(item.banner) }}</b
+                            ><br />
+                            Total full-screen revenues:
+                            <b>{{ useFormatRevenues(item.fullscreen) }}</b
+                            ><br />
+                            Total video revenues:
+                            <b>{{ useFormatRevenues(item.video) }}</b
+                            ><br />
+                            Total rewarded revenues:
+                            <b>{{ useFormatRevenues(item.rewarded) }}</b
+                            ><br
+                          /></v-col>
+                        </v-row>
+                      </div>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
             </v-sheet>
             <v-sheet v-else min-height="70vh" rounded="lg" class="pa-15">
               <!-- page 1 -->
             </v-sheet>
           </v-col>
-          <v-col cols="12" sm="2"> </v-col>
+          <v cols="12" sm="2" />
         </v-row>
       </v-container>
     </v-main>
@@ -50,12 +118,27 @@
 //imports
 import { ref, onMounted, watch } from "vue";
 import useGroupApps from "../functions/useGroupApps";
+import useFormatRevenues from "../functions/useFormatRevenues";
+import useGetBestCountry from "../functions/useGetBestCountry";
 const selectedTab = ref(0);
 const loading = ref(false);
 //variables
 const links = ref(["Dashboard", "About"]);
 const apiResult = ref();
 const groupedData = ref([]);
+let expanded = ref([]);
+
+const headers = ref([
+  { title: "App", key: "app" },
+  { title: "US", key: "totalRevenuesUS" },
+  { title: "UK", key: "totalRevenuesUK" },
+  { title: "FR", key: "totalRevenuesFR" },
+  { title: "JP", key: "totalRevenuesJP" },
+  { title: "CN", key: "totalRevenuesCN" },
+  { title: "AU", key: "totalRevenuesAU" },
+  { title: "Total", key: "totalRevenues" },
+  { title: "", key: "data-table-expand" },
+]);
 //functions
 onMounted(async () => {
   fetchMonetizationApi();
