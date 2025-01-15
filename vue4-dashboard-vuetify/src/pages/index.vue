@@ -14,7 +14,9 @@
     <v-main class="px-3">
       <v-container fluid>
         <v-row>
-          <v-col cols="12" sm="2" />
+          <v-col cols="12" sm="2">
+            <FilterBloc @searchValueChangerd="updateSearchValue" />
+          </v-col>
           <v-col cols="12" sm="8">
             <v-sheet
               v-if="selectedTab == 0"
@@ -24,6 +26,31 @@
             >
               <!-- page 0 -->
               <h2 class="mt-4">Apps list:</h2>
+              <!-- KPIs -->
+              <!-- KPI overview -->
+              <v-row>
+                <v-col>
+                  <KpiBloc
+                    :isUp="false"
+                    blocTitle="Total Android revenues"
+                    :blocValue="getTotalOsRevenues('android')"
+                  />
+                </v-col>
+                <v-col>
+                  <KpiBloc
+                    :isUp="true"
+                    blocTitle="Total iOS revenues"
+                    :blocValue="getTotalOsRevenues('ios')"
+                  />
+                </v-col>
+                <v-col>
+                  <KpiBloc
+                    :isUp="true"
+                    blocTitle="Total revenues"
+                    :blocValue="getTotalOsRevenues('')"
+                  />
+                </v-col>
+              </v-row>
               <!-- loading animation -->
               <v-progress-circular
                 v-if="loading"
@@ -40,6 +67,7 @@
                 item-value="app"
                 v-model:expanded="expanded"
                 show-expand="true"
+                :search="searchValue"
               >
                 <template v-slot:header.app="{ column }">
                   {{ column.title.toUpperCase() }}
@@ -126,7 +154,8 @@ const loading = ref(false);
 const links = ref(["Dashboard", "About"]);
 const apiResult = ref();
 const groupedData = ref([]);
-let expanded = ref([]);
+const expanded = ref([]);
+const searchValue = ref("");
 
 const headers = ref([
   { title: "App", key: "app" },
@@ -162,5 +191,23 @@ const fetchMonetizationApi = async () => {
     .then((data) => (apiResult.value = data))
     .finally(() => (loading.value = false))
     .catch((error) => console.error("Erreur:", error));
+};
+
+//functions
+const getTotalOsRevenues = (os = "") => {
+  let total = 0;
+  groupedData.value.forEach((app: any) => {
+    if (os !== "") {
+      total += app.platform == os ? app.totalRevenues : 0;
+    } else {
+      total += app.totalRevenues;
+    }
+  });
+
+  return `${useFormatRevenues(total)}`;
+};
+
+const updateSearchValue = (value: any) => {
+  searchValue.value = value;
 };
 </script>

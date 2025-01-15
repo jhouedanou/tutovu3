@@ -8,7 +8,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BarChart: typeof import('./src/components/BarChart.vue')['default']
+    FilterBloc: typeof import('./src/components/FilterBloc.vue')['default']
+    FlllterBloc: typeof import('./src/components/FlllterBloc.vue')['default']
+    KpiBloc: typeof import('./src/components/KpiBloc.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ShowMetric: typeof import('./src/components/ShowMetric.vue')['default']
   }
 }
