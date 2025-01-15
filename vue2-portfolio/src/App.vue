@@ -11,7 +11,8 @@ const monNom = ref("Jean Luc Houedanou");
     <PageHeader>{{ monNom }}</PageHeader>
   </header>
   <main>
-    <PortfolioMain />
+    <!-- <PortfolioMain /> -->
+    <RouterView />
   </main>
 </template>
 

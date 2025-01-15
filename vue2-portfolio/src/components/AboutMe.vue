@@ -3,6 +3,7 @@
 <template>
   <div id="about-me">
     <h1>Qui est Jean Luc Houédanou ?</h1>
+    <h4><RouterLink to="/contact">Contactez moi</RouterLink></h4>
     <p>
       Jean Luc Houédanou est un professionnel polyvalent avec des compétences et
       des expériences variées, allant de la gestion de projets technologiques à
