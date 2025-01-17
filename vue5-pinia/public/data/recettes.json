@@ -1,0 +1,45 @@
+{
+  "recettes": [
+    {
+      "id": 1,
+      "name": "Pizza",
+      "description": "Une bonne pizza", 
+      "image": "https://www.pizzahut.fr/images/pizza/pizza-margherita.png",
+      "note": 4
+    },
+    {
+      "id": 2, 
+      "name": "Poulet",
+      "description": "Du poulet",
+      "image": "https://www.pizzahut.fr/images/pizza/pizza-margherita.png", 
+      "note": 3
+    },
+    {
+      "id": 3,
+      "name": "Couscous",
+      "description": "Un délicieux couscous royal",
+      "image": "https://exemple.com/couscous.jpg",
+      "note": 5
+    },
+    {
+      "id": 4,
+      "name": "Ratatouille",
+      "description": "Un plat traditionnel provençal",
+      "image": "https://exemple.com/ratatouille.jpg",
+      "note": 4
+    },
+    {
+      "id": 5,
+      "name": "Quiche Lorraine",
+      "description": "Une quiche crémeuse aux lardons",
+      "image": "https://exemple.com/quiche.jpg",
+      "note": 4
+    },
+    {
+      "id": 6,
+      "name": "Boeuf Bourguignon",
+      "description": "Un classique de la cuisine française",
+      "image": "https://exemple.com/boeuf-bourguignon.jpg",
+      "note": 5
+    }  ]
+}
